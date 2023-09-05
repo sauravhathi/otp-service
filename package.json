@@ -1,14 +1,14 @@
 {
   "name": "otp-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app/index.js",
   "description": "This is a free OTP (One-Time Password) service built with Node.js, Express.js, Mongoose, and node-cron for handling OTP generation, verification, and automatic expiration.",
   "author": "Saurav Hathi",
   "repository": "https://github.com/sauravhathi/otp-service",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app/index.js",
+    "dev": "nodemon app/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
