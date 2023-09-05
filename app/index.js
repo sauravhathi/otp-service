@@ -16,9 +16,9 @@ db.once('open', () => {
 app.use(cors());
 app.use(express.json());
 
-const {isValidEmail} = require('./app/utils/validator');
-const otpRoutes = require('./app/routes/otpRoutes');
-const schedulerController = require('./app/controllers/schedulerController'); 
+const {isValidEmail} = require('./utils/validator');
+const otpRoutes = require('./routes/otpRoutes');
+const schedulerController = require('./controllers/schedulerController'); 
 
 const middleware = (req, res, next) => {
     const { email } = req.body;
