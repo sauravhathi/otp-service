@@ -23,6 +23,10 @@ You can interact with the API using the following endpoints:
 | `POST https://otp-4e71.onrender.com/api/otp`         | Generate a one-time password (OTP) for a given email. |
 | `POST https://otp-4e71.onrender.com/api/otp/verify`   | Verify an OTP for a given email.          |
 
+## Email Integration
+
+To send emails for OTP delivery, you can use the [sauravhathi/mailer](https://github.com/sauravhathi/mailer) repository. It provides a straightforward way to send emails as part of your OTP delivery process.
+
 ## Installation
 
 1. Clone the repository:
