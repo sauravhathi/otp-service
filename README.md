@@ -14,6 +14,15 @@ This is a free OTP (One-Time Password) service built with Node.js, Express.js, M
 
 🚀 Error handling for invalid OTPs and expired OTPs.
 
+## Demo
+
+You can interact with the API using the following endpoints:
+
+| Endpoint                       | Description                               |
+| ------------------------------ | ----------------------------------------- |
+| `POST https://otp-4e71.onrender.com/api/otp`         | Generate a one-time password (OTP) for a given email. |
+| `POST https://otp-4e71.onrender.com/api/otp/verify`   | Verify an OTP for a given email.          |
+
 ## Installation
 
 1. Clone the repository:
