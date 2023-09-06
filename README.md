@@ -113,7 +113,7 @@ The service automatically clears expired OTPs based on the configured cron sched
 
 If you find this project useful and want to support its development, consider buying us a coffee!
 
-<img src="https://github.com/sauravhathi/myperfectice-extension/assets/61316762/274f2172-8dcc-4fe9-aa51-fd3542429c3e" alt="support" style="width: 200px">
+<img src="https://github.com/sauravhathi/otp-service/assets/61316762/021a6988-e823-4490-b8f2-ca6a0517ecc5" alt="support" style="width: 200px">
 
 Donate: `saurav.34@paytm`
 
