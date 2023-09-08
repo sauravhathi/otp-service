@@ -1,6 +1,6 @@
 {
   "name": "otp-service",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "app/index.js",
   "description": "This is a free OTP (One-Time Password) service built with Node.js, Express.js, Mongoose, and node-cron for handling OTP generation, verification, and automatic expiration.",
   "author": "Saurav Hathi",
