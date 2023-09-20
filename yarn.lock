@@ -525,6 +525,11 @@ node-cron@^3.0.2:
   dependencies:
     uuid "8.3.2"
 
+nodemailer@^6.9.5:
+  version "6.9.5"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.5.tgz#eaeae949c62ec84ef1e9128df89fc146a1017aca"
+  integrity sha512-/dmdWo62XjumuLc5+AYQZeiRj+PRR8y8qKtFCOyuOl1k/hckZd8durUUHs/ucKx6/8kN+wFxqKJlQ/LK/qR5FA==
+
 nodemon@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-3.0.1.tgz#affe822a2c5f21354466b2fc8ae83277d27dadc7"

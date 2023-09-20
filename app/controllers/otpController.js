@@ -1,21 +1,11 @@
 const Otp = require('../models/otpModel');
+const generateOTP = require('../utils/generateOTP');
 const logger = require('../utils/logger');
 const validityPeriodMinutes = parseInt(process.env.OTP_VALIDITY_PERIOD_MINUTES);
 const OTP_SIZE = parseInt(process.env.OTP_SIZE);
 
-const generateOTP = (size) => {
-    if (size < 1 && size > 10) {
-        logger.error('Invalid OTP size');
-        throw new Error('Invalid OTP size');
-    }
-
-    const min = 10 ** (size - 1);
-    const max = 10 ** size - 1;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 const otpController = {
-    generateOtp: async (email) => {
+    generateOtp: async (email, type) => {
         try {
             // Check if an OTP has already been generated for this email
             const existingOtp = await Otp.findOne({
@@ -30,13 +20,12 @@ const otpController = {
                 return existingOtp.otp;
             }
 
-            const otp = generateOTP(OTP_SIZE);
+            const otp = generateOTP(OTP_SIZE, type);
 
             const otpDocument = new Otp({
                 id: new Date().getTime(),
                 email: email,
                 otp: otp,
-                createdAt: new Date(),
             });
 
             await otpDocument.save();

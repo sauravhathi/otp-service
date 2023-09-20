@@ -1,117 +1,137 @@
-# 📱 OTP Service
+# OTP Service
 
-This is a free OTP (One-Time Password) service built with Node.js, Express.js, Mongoose, and node-cron for handling OTP generation, verification, and automatic expiration.
+The OTP (One-Time Password) Free Service is a Node.js-based service that allows you to generate and verify one-time passwords (OTP) via email. This service is useful for adding an extra layer of security to your applications by enabling two-factor authentication (2FA) or passwordless login.
+
+## Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Generating an OTP](#generating-an-otp)
+  - [Verifying an OTP](#verifying-an-otp)
+- [Configuration](#configuration)
+  - [Environment Variables](#environment-variables)
+- [Scheduled OTP Cleanup](#scheduled-otp-cleanup)
+- [Donation](#donation)
+- [License](#license)
 
 ## Features
 
-✨ Generate a one-time password (OTP) for a given email.
+| Feature                                      | Description                                                                                                                                                           |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Generate numeric, alphanumeric, or alphabet-based OTPs | Generate one-time passwords with various character types: numeric, alphanumeric, or alphabet-based.  |
+| Send OTPs via email                          | Send OTPs to users via email for authentication or verification.                                                                                                      |
+| Verify OTPs for user authentication           | Verify OTPs provided by users for secure authentication.                                                                                                                |
+| Automatic cleanup of expired OTPs            | Automatically remove expired OTPs from the database based on a configured cron schedule.                                                                            |
+| Customizable OTP validity period and size     | Adjust the validity period and size (length) of OTPs to match your security requirements.                                                                          |
+| Rate limiting for OTP generation              | Implement rate limiting to prevent abuse and ensure the service is used responsibly.                                                                              |
+| Multiple email service providers supported   | Choose from multiple email service providers (e.g., Gmail, Outlook) to send OTP emails.                                                                            |
+| Flexible configuration via environment variables | Customize the service's behavior by configuring environment variables.                                                                                                  |
+| Easy-to-use API with JSON input/output        | Interact with the service through a user-friendly JSON API for OTP generation and verification.                                                                  |
 
-🔐 Verify an OTP for a given email.
+## Getting Started
 
-⏰ Automatic OTP expiration and cleanup using cron jobs.
+### Prerequisites
 
-⚙️ Configurable OTP size and validity period.
+Before you begin, ensure you have met the following requirements:
 
-🚀 Error handling for invalid OTPs and expired OTPs.
+| Prerequisite          | Description                                                      |
+| --------------------- | ---------------------------------------------------------------- |
+| Node.js and npm       | Install Node.js and npm on your development machine.            |
+| MongoDB database     | Set up a MongoDB database (local or cloud-hosted, e.g., MongoDB Atlas) for storing OTP data. |
 
-## Demo
-
-You can interact with the API using the following endpoints:
-
-| Endpoint                       | Description                               |
-| ------------------------------ | ----------------------------------------- |
-| `POST https://otp-4e71.onrender.com/api/otp`         | Generate a one-time password (OTP) for a given email. |
-| `POST https://otp-4e71.onrender.com/api/otp/verify`   | Verify an OTP for a given email.          |
-
-## Email Integration
-
-To send emails for OTP delivery, you can use the [sauravhathi/mailer](https://github.com/sauravhathi/mailer) repository. It provides a straightforward way to send emails as part of your OTP delivery process.
-
-## Installation
+### Installation
 
 1. Clone the repository:
 
-   ```bash
+   ```shell
    git clone https://github.com/sauravhathi/otp-service.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```shell
    cd otp-service
    ```
 
-2. Install dependencies:
+3. Install the dependencies:
 
-   ```bash
+   ```shell
    npm install
-
-    # or
-
-   yarn
    ```
 
-3. Set up your environment variables by creating a `.env` file in the project root directory and configuring the following variables:
+4. Configure your environment variables by creating a `.env` file in the project root directory. You can use the provided `.env.example` as a template.
 
-   ```env
-   MONGODB_URI=<your-mongodb-connection-uri>
-   OTP_VALIDITY_PERIOD_MINUTES=2
-   OTP_SIZE=4
-   CRON_SCHEDULE=*/2 * * * *
+5. Start the service:
+
+   ```shell
+   npm start
    ```
 
-   - `MONGODB_URI`: MongoDB connection URI.
-   - `OTP_VALIDITY_PERIOD_MINUTES`: Validity period for OTPs in minutes.
-   - `OTP_SIZE`: Size of the OTP (number of digits).
-   - `CRON_SCHEDULE`: Cron schedule for automatic OTP cleanup.
+The service should now be running on the specified port (default is 3000).
 
-4. Start the server:
+## Usage
 
-   ```bash
-   npm dev
+### Generating an OTP
 
-   # or
+To generate an OTP for a user, make a POST request to the `/api/otp/generate` endpoint with the user's email address in the request body. You can also specify the OTP type, organization name, and email subject.
 
-   yarn dev
-   ```
+Example request:
 
-## API Endpoints
+```json
+POST /api/otp/generate
+{
+  "email": "user@example.com",
+  "type": "numeric",
+  "organization": "MyApp",
+  "subject": "OTP Verification"
+}
+```
 
-### Generate OTP 🚀
+The service will send an email containing the OTP to the user's email address.
 
-- **Endpoint**: POST `/api/otp`
-- **Request Body**:
-  ```json
-  {
-    "email": "user@example.com"
-  }
-  ```
-- **Response**:
-  ```json
-  {
-    "otp": 1234
-  }
-  ```
+### Verifying an OTP
 
-### Verify OTP 🔐
+To verify an OTP for user authentication, make a POST request to the `/api/otp/verify` endpoint with the user's email address and the OTP in the request body.
 
-- **Endpoint**: POST `/api/otp/verify`
-- **Request Body**:
-  ```json
-  {
-    "email": "user@example.com",
-    "otp": 1234
-  }
-  ```
-- **Response**:
-  ```json
-  {
-    "message": "OTP is valid"
-  }
-  ```
+Example request:
 
-## Scheduled OTP Cleanup ⏰
+```json
+POST /api/otp/verify
+{
+  "email": "user@example.com",
+  "otp": "123456"
+}
+```
 
-The service automatically clears expired OTPs based on the configured cron schedule.
+The service will respond with a success message if the OTP is valid.
 
-## Donate ☕
+## Configuration
 
-If you find this project useful and want to support its development, consider buying us a coffee!
+You can customize the OTP service by modifying the environment variables in the `.env` file. Here are some key configuration options:
+
+### Environment Variables
+
+| Variable                     | Description                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| `PORT`                       | The port on which the service listens.                                                        |
+| `MONGODB_URI`                | The MongoDB connection string.                                                                |
+| `OTP_VALIDITY_PERIOD_MINUTES` | The validity period of OTPs in minutes.                                                      |
+| `OTP_SIZE`                   | The size (length) of OTPs.                                                                    |
+| `CRON_SCHEDULE`              | The cron schedule for OTP cleanup.                                                            |
+| `ALLOWED_DOMAINS`            | Comma-separated list of allowed email domains.                                                |
+| `GMAIL_USER`                 | Gmail username (used for sending emails).                                                     |
+| `GMAIL_PASS`                 | Gmail password (used for sending emails).                                                     |
+
+## Scheduled OTP Cleanup
+
+The service automatically clears expired OTPs based on the configured cron schedule. By default, it runs daily at midnight to remove expired OTPs.
+
+## Donation
+
+If you find this project useful and want to support its development, consider buying us a coffee! Your support is greatly appreciated.
 
 <img src="https://github.com/sauravhathi/otp-service/assets/61316762/021a6988-e823-4490-b8f2-ca6a0517ecc5" alt="support" style="width: 200px">
 
