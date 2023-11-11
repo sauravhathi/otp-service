@@ -11,5 +11,11 @@
             "src": "/(.*)",
             "dest": "app/index.js"
         }
+    ],
+    "crons": [
+        {
+            "path": "/api/cron?secret=654f0ab14r219b958bkaih96",
+            "schedule": "0 3 * * *"
+        }
     ]
 }
