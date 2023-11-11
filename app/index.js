@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./db/config');
+const middleware = require('./middleware/middleware');
 const { isValidEmail } = require('./utils/validator');
 const otpRoutes = require('./routes/otpRoutes');
 const logger = require('./utils/logger');
@@ -14,15 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const middleware = (req, res, next) => {
-  const { email } = req.body;
-  if (!isValidEmail(email)) {
-    logger.error('Invalid email');
-    return res.status(400).json({ error: 'Invalid email' });
-  }
-  next();
-};
-
 connectDB();
 
 app.get('/', (req, res) => {
@@ -33,12 +25,6 @@ app.use('/api', middleware, otpRoutes);
 
 app.get('/api/cron', (req, res) => {
   try {
-    const secret = req.query.secret;
-
-    if (secret !== process.env.CRON_SECRET) {
-      return res.status(401).end('Unauthorized');
-    }
-
     scheduledTask.start();
     res.send({ message: 'Cron job started', status: 200 });
   }
