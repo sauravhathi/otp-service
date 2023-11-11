@@ -1,12 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const connectDB = require('./db/config');
 const { isValidEmail } = require('./utils/validator');
 const otpRoutes = require('./routes/otpRoutes');
 const logger = require('./utils/logger');
-require('./controllers/schedulerController');
+const scheduledTask = require('./controllers/schedulerController');
 
 dotenv.config();
 
@@ -26,7 +25,27 @@ const middleware = (req, res, next) => {
 
 connectDB();
 
+app.get('/', (req, res) => {
+  res.send('Welcome to OTP service');
+});
+
 app.use('/api', middleware, otpRoutes);
+
+app.get('/api/cron', (req, res) => {
+  try {
+    const secret = req.query.secret;
+
+    if (secret !== process.env.CRON_SECRET) {
+      return res.status(401).end('Unauthorized');
+    }
+
+    scheduledTask.start();
+    res.send({ message: 'Cron job started', status: 200 });
+  }
+  catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
