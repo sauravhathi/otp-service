@@ -1,4 +1,5 @@
 const { isValidEmail } = require("../utils/validator");
+const logger = require("../utils/logger");
 
 const validateEmail = (req, res, next) => {
     const { email } = req.body;
