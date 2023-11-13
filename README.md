@@ -21,7 +21,7 @@ The OTP (One-Time Password) Free Service is a Node.js-based service that allows 
 
 | Feature                                      | Description                                                                                                                                                           |
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Generate numeric, alphanumeric, or alphabet-based OTPs | Generate one-time passwords with various character types: numeric, alphanumeric, or alphabet-based.  |
+| Generate numeric, alphanumeric, or alphabet based OTPs | Generate one-time passwords with various character types: numeric, alphanumeric, or alphabet based.  |
 | Send OTPs via email                          | Send OTPs to users via email for authentication or verification.                                                                                                      |
 | Verify OTPs for user authentication           | Verify OTPs provided by users for secure authentication.                                                                                                                |
 | Automatic cleanup of expired OTPs            | Automatically remove expired OTPs from the database based on a configured cron schedule.                                                                            |
