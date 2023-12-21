@@ -2,6 +2,11 @@
 
 The OTP (One-Time Password) Free Service is a Node.js-based service that allows you to generate and verify one-time passwords (OTP) via email. This service is useful for adding an extra layer of security to your applications by enabling two-factor authentication (2FA) or passwordless login.
 
+## Demo
+
+- **API:** [otp-service-beta.vercel.app](https://otp-service-beta.vercel.app/)
+- **App:** [otp-service-app.vercel.app](https://otp-service-app.vercel.app/)
+
 ## Table of Contents
 
 - [Features](#features)
