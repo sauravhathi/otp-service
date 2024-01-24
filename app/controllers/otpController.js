@@ -16,10 +16,16 @@ const otpController = {
             }).lean();
 
             if (existingOtp) {
+                if (existingOtp.attempts >= 3) {
+                    logger.info(`Maximum attempts reached for OTP ${existingOtp.otp} associated with ${email}`);
+                    throw new Error('Maximum attempts reached. Please try again after some time');
+                }
+
+                await Otp.updateOne({ _id: existingOtp._id }, { $inc: { attempts: 1 } });
                 logger.info(`OTP ${existingOtp.otp} already exists for ${email}`);
                 return existingOtp.otp;
             }
-
+            
             const otp = generateOTP(OTP_SIZE, type);
 
             const otpDocument = new Otp({
@@ -34,7 +40,7 @@ const otpController = {
             return otp;
         } catch (error) {
             logger.error("Failed to generate OTP", error.message);
-            throw new Error('Failed to generate OTP');
+            throw new Error(error.message || 'Failed to generate OTP');
         }
     },
     verifyOtp: async (email, otp) => {
@@ -67,7 +73,7 @@ const otpController = {
             await Otp.deleteMany({ createdAt: { $lt: cutoffTime } });
         } catch (error) {
             logger.error("Failed to clear expired OTPs", error.message);
-            throw new Error('Failed to clear expired OTPs');
+            throw new Error(error.message || 'Failed to clear expired OTPs');
         }
     },
 };
