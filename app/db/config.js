@@ -4,10 +4,15 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+let existingConnection;
+
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-        logger.info('🚀 Connected to MongoDB');
+        if (!existingConnection) {
+            existingConnection = await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+            logger.info('🚀 Connected to MongoDB');
+        }
+        return existingConnection;
     } catch (error) {
         console.error(error);
         logger.error(error);
