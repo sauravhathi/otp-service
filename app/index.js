@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./db/config');
-const middleware = require('./middleware/middleware');
+const {middleware, validateSpamMiddleware} = require('./middleware/middleware');
 const { isValidEmail } = require('./utils/validator');
 const otpRoutes = require('./routes/otpRoutes');
 const logger = require('./utils/logger');
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to OTP service');
 });
 
-app.use('/api', middleware, otpRoutes);
+app.use('/api', validateSpamMiddleware, middleware, otpRoutes);
 
 app.get('/api/cron', (req, res) => {
   try {
