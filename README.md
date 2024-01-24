@@ -19,6 +19,7 @@ The OTP (One-Time Password) Free Service is a Node.js-based service that allows 
 - [Configuration](#configuration)
   - [Environment Variables](#environment-variables)
 - [Scheduled OTP Cleanup](#scheduled-otp-cleanup)
+- [Spam Detection](#spam-detection)
 - [Donation](#donation)
 - [License](#license)
 
@@ -30,6 +31,7 @@ The OTP (One-Time Password) Free Service is a Node.js-based service that allows 
 | Send OTPs via email                          | Send OTPs to users via email for authentication or verification.                                                                                                      |
 | Verify OTPs for user authentication           | Verify OTPs provided by users for secure authentication.                                                                                                                |
 | Automatic cleanup of expired OTPs            | Automatically remove expired OTPs from the database based on a configured cron schedule.                                                                            |
+| Spam detection                               | Detect spam requests and block them from being processed.
 | Customizable OTP validity period and size     | Adjust the validity period and size (length) of OTPs to match your security requirements.                                                                          |
 | Rate limiting for OTP generation              | Implement rate limiting to prevent abuse and ensure the service is used responsibly.                                                                              |
 | Multiple email service providers supported   | Choose from multiple email service providers (e.g., Gmail, Outlook) to send OTP emails.                                                                            |
@@ -129,10 +131,15 @@ You can customize the OTP service by modifying the environment variables in the 
 | `ALLOWED_DOMAINS`            | Comma-separated list of allowed email domains.                                                |
 | `GMAIL_USER`                 | Gmail username (used for sending emails).                                                     |
 | `GMAIL_PASS`                 | Gmail password (used for sending emails).                                                     |
+| `BLOCK_KEYWORDS_RULES`       | Comma-separated list of blocked keywords.                                                     |
 
 ## Scheduled OTP Cleanup
 
 The service automatically clears expired OTPs based on the configured cron schedule. By default, it runs daily at midnight to remove expired OTPs.
+
+## Spam Detection
+
+The service uses a spam detection mechanism to prevent abuse. It checks the request body for spam keywords and blocks the request if any are found. You can configure the spam keywords by setting the `SPAM_WORDS` environment variable.
 
 ## Donation
 

@@ -10,6 +10,10 @@ const otpSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  attempts: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -19,3 +23,4 @@ const otpSchema = new mongoose.Schema({
 const Otp = mongoose.model('Otp', otpSchema);
 
 module.exports = Otp;
+

@@ -9,6 +9,9 @@ router.post('/otp/generate', async (req, res) => {
   try {
     const { email, type = 'numeric', organization = 'Saurav Hathi', subject = 'One-Time Password (OTP)' } = req.body;
 
+    // SPAM_WORDS = madarchod,chutiya,bsdk,bsdk,mc,bc,bhoslund,land,behenchod,motherfucker
+    const spma_words = process.env.SPAM_WORDS
+
     const otp = await otpController.generateOtp(email, type);
 
     await sendMailController(email, otp, organization, subject);
