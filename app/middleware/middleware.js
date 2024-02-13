@@ -2,7 +2,7 @@ const { isValidEmail } = require("../utils/validator");
 const logger = require("../utils/logger");
 const Blocklist = require("../models/blockListModel");
 
-const spma_words = process.env.BLOCK_KEYWORDS_RULES.split(',') || [];
+const spma_words = process.env.BLOCK_KEYWORDS_RULES ? process.env.BLOCK_KEYWORDS_RULES.split(',') : [];
 
 const getIp = async (req) => {
     try {
@@ -31,7 +31,7 @@ const validateSpamMiddleware = async (req, res, next) => {
         return res.status(400).json({ error: 'Spam detected' });
     }
 
-    if (spma_words.some(word => bodyText.includes(word))) {
+    if (spma_words.some(word => bodyText.toLowerCase().includes(word.toLowerCase()))) {
         await Blocklist.create({ ip: ip, email: req.body.email ? req.body.email : null });
         logger.error('Spam detected');
         return res.status(400).json({ error: 'Spam detected' });
