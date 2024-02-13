@@ -97,6 +97,7 @@ async function sendMailController(email, otp, organization, subject) {
                       <body>
                           <div class="container">
                               <div class="header">
+                                  <h1>${organization}</h1>
                                   <p style="font-size: 14px;color: #ffffff;">
                                   You received this email because you (or someone else) requested an OTP.
                                   </p>
