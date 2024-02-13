@@ -12,7 +12,6 @@ const isValidEmail = (email) => {
         (allowedDomains.length === 0 || allowedDomains.includes(domain)) &&
         localPart.length >= minLocalPartLength &&
         localPart.length <= maxLocalPartLength &&
-        !/^[0-9]/.test(localPart) &&
         emailRegex.test(email)
     );
 };
