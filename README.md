@@ -145,10 +145,6 @@ The service uses a spam detection mechanism to prevent abuse. It checks the requ
 
 If you find this project useful and want to support its development, consider buying us a coffee! Your support is greatly appreciated.
 
-<img src="https://github.com/sauravhathi/otp-service/assets/61316762/021a6988-e823-4490-b8f2-ca6a0517ecc5" alt="support" style="width: 200px">
-
-Donate: `saurav.34@paytm`
-
 <a href="https://www.buymeacoffee.com/sauravhathi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## License
