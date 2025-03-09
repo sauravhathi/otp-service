@@ -1,5 +1,7 @@
 # OTP Service
 
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white) ![MIT License](https://img.shields.io/badge/License-MIT-FF5722)
+
 The OTP (One-Time Password) Free Service is a Node.js-based service that allows you to generate and verify one-time passwords (OTP) via email. This service is useful for adding an extra layer of security to your applications by enabling two-factor authentication (2FA) or passwordless login.
 
 ## Demo
@@ -18,7 +20,6 @@ The OTP (One-Time Password) Free Service is a Node.js-based service that allows 
   - [Verifying an OTP](#verifying-an-otp)
 - [Configuration](#configuration)
   - [Environment Variables](#environment-variables)
-- [Scheduled OTP Cleanup](#scheduled-otp-cleanup)
 - [Spam Detection](#spam-detection)
 - [Donation](#donation)
 - [License](#license)
@@ -29,8 +30,7 @@ The OTP (One-Time Password) Free Service is a Node.js-based service that allows 
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Generate numeric, alphanumeric, or alphabet based OTPs | Generate one-time passwords with various character types: numeric, alphanumeric, or alphabet based.  |
 | Send OTPs via email                          | Send OTPs to users via email for authentication or verification.                                                                                                      |
-| Verify OTPs for user authentication           | Verify OTPs provided by users for secure authentication.                                                                                                                |
-| Automatic cleanup of expired OTPs            | Automatically remove expired OTPs from the database based on a configured cron schedule.                                                                            |
+| Verify OTPs for user authentication           | Verify OTPs provided by users for secure authentication.                                                          |
 | Spam detection                               | Detect spam requests and block them from being processed.
 | Customizable OTP validity period and size     | Adjust the validity period and size (length) of OTPs to match your security requirements.                                                                          |
 | Rate limiting for OTP generation              | Implement rate limiting to prevent abuse and ensure the service is used responsibly.                                                                              |
@@ -127,15 +127,10 @@ You can customize the OTP service by modifying the environment variables in the 
 | `MONGODB_URI`                | The MongoDB connection string.                                                                |
 | `OTP_VALIDITY_PERIOD_MINUTES` | The validity period of OTPs in minutes.                                                      |
 | `OTP_SIZE`                   | The size (length) of OTPs.                                                                    |
-| `CRON_SCHEDULE`              | The cron schedule for OTP cleanup.                                                            |
 | `ALLOWED_DOMAINS`            | Comma-separated list of allowed email domains.                                                |
 | `GMAIL_USER`                 | Gmail username (used for sending emails).                                                     |
 | `GMAIL_PASS`                 | Gmail password (used for sending emails).                                                     |
 | `BLOCK_KEYWORDS_RULES`       | Comma-separated list of blocked keywords.                                                     |
-
-## Scheduled OTP Cleanup
-
-The service automatically clears expired OTPs based on the configured cron schedule. By default, it runs daily at midnight to remove expired OTPs.
 
 ## Spam Detection
 
