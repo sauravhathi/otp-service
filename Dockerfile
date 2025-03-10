@@ -1,13 +1,16 @@
 FROM node:16.14.2-alpine
 
-COPY . /app
+ENV NODE_ENV=production
 
-WORKDIR /app
+COPY . /dist
+
+WORKDIR /dist
 
 COPY package*.json ./
+COPY .env ./
 
 RUN yarn install 
 
 EXPOSE 5001
 
-CMD ["yarn","start"]
+CMD ["yarn", "start"]
