@@ -11,3 +11,5 @@ yarn-error.log*
 
 # env files
 .env*
+
+app.log
