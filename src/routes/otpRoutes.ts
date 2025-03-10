@@ -31,7 +31,7 @@ router.post('/otp/generate', validateSpamMiddleware, async (req, res) => {
 router.post('/otp/verify', async (req, res) => {
   try {
     const { email, otp } = req.body;
-    await otpController.verifyOtp(email, otp);
+    await otpController.verifyOtp(email, otp?.toString());
 
     res.status(200).json({ message: 'OTP is verified' });
   } catch (error) {
